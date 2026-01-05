@@ -1,3 +1,17 @@
+import sys
+from pathlib import Path
+
+def _ensure_project_root_on_path():
+    here = Path(__file__).resolve()
+    # Walk up until we find the project root containing 'core/'
+    for p in [here] + list(here.parents):
+        if (p / "core").exists():
+            if str(p) not in sys.path:
+                sys.path.insert(0, str(p))
+            return
+
+_ensure_project_root_on_path()
+
 import os
 import argparse
 from pathlib import Path
